@@ -1,6 +1,6 @@
-package com.example.spirngword.repositoy;
+package com.example.spirngword.word.repository;
 
-import com.example.spirngword.domain.Word;
+import com.example.spirngword.word.domain.Word;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
-package com.example.spirngword.controller;
+package com.example.spirngword.word.controller;
 
-import com.example.spirngword.service.WordService;
+import com.example.spirngword.word.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

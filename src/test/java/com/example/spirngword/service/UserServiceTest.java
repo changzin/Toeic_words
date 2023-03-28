@@ -1,7 +1,8 @@
 package com.example.spirngword.service;
 
-import com.example.spirngword.domain.Word;
-import com.example.spirngword.repositoy.WordRepository;
+import com.example.spirngword.word.domain.Word;
+import com.example.spirngword.word.repository.WordRepository;
+import com.example.spirngword.word.service.WordService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

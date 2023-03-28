@@ -1,16 +1,18 @@
-package com.example.spirngword.domain;
+package com.example.spirngword.word.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 
 @Entity
+@Table(name="WORD")
 public class Word {
     @Id
     @GeneratedValue
+    @Column(name="WORD_ID")
     private Long id;
+    @Column(name="WORD_SPELL")
     private String spell;
+    @Column(name="WORD_MEAN")
     private String mean;
 
     public Long getId() {

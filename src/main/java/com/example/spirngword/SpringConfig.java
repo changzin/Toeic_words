@@ -1,8 +1,8 @@
 package com.example.spirngword;
 
-import com.example.spirngword.repositoy.JpaWordRepository;
-import com.example.spirngword.repositoy.WordRepository;
-import com.example.spirngword.service.WordService;
+import com.example.spirngword.word.repository.JpaWordRepository;
+import com.example.spirngword.word.repository.WordRepository;
+import com.example.spirngword.word.service.WordService;
 import jakarta.persistence.EntityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

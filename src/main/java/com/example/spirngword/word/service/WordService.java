@@ -1,9 +1,8 @@
-package com.example.spirngword.service;
+package com.example.spirngword.word.service;
 
-import com.example.spirngword.domain.Word;
-import com.example.spirngword.repositoy.WordRepository;
+import com.example.spirngword.word.domain.Word;
+import com.example.spirngword.word.repository.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
