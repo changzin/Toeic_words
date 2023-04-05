@@ -28,6 +28,7 @@ public class WordController {
         }
         return ResponseEntity.ok().body(wordService.findOne(word.getId()));
     }
+
     @GetMapping("/find")
     public ResponseEntity readOne(@RequestParam("id") Long id){
         return ResponseEntity.ok().body(wordService.findOne(id));
