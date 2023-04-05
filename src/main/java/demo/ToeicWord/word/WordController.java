@@ -17,19 +17,19 @@ public class WordController {
     }
     @PostMapping("/new")
     public ResponseEntity create(Dto dto){
-        Word user = new Word();
-        user.setSpell(dto.getSpell());
-        user.setMean(dto.getMean());
+        Word word = new Word();
+        word.setSpell(dto.getSpell());
+        word.setMean(dto.getMean());
         try{
-            wordService.addOne(user);
+            wordService.addOne(word);
         }
         catch(IllegalStateException e){
             return ResponseEntity.ok().body(e.getMessage());
         }
-        return ResponseEntity.ok().body(wordService.findOne(user.getId()));
+        return ResponseEntity.ok().body(wordService.findOne(word.getId()));
     }
     @GetMapping("/find")
-    public String readOne(@RequestParam("id") Long id){
-        return "asd";
+    public ResponseEntity readOne(@RequestParam("id") Long id){
+        return ResponseEntity.ok().body(wordService.findOne(id));
     }
 }
