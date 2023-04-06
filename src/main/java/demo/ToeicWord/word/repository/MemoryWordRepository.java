@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Repository
 public class MemoryWordRepository implements WordRepository{
     private static Map<Long, Word> words = new HashMap<>();
     private Long sequence = 0L;

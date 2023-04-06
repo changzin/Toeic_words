@@ -6,6 +6,7 @@ import demo.ToeicWord.word.repository.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Service
 public class WordService {
 
     private final WordRepository wordRepository;

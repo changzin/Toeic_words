@@ -5,6 +5,14 @@ public class Word {
     private String spell;
     private String mean;
 
+    public Word() {
+    }
+
+    public Word(String spell, String mean) {
+        this.spell = spell;
+        this.mean = mean;
+    }
+
     public long getId() {
         return id;
     }
