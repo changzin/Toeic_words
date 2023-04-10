@@ -31,6 +31,6 @@ public class WordController {
 
     @GetMapping("/find")
     public ResponseEntity readOne(@RequestParam("id") Long id){
-        return ResponseEntity.ok().body(wordService.findOne(id));
+        return ResponseEntity.ok().body(wordService.findOne(id).get());
     }
 }

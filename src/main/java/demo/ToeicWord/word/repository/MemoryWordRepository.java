@@ -3,9 +3,7 @@ package demo.ToeicWord.word.repository;
 import demo.ToeicWord.word.domain.Word;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class MemoryWordRepository implements WordRepository{
@@ -21,5 +19,11 @@ public class MemoryWordRepository implements WordRepository{
     @Override
     public Optional<Word> findById(Long id) {
         return Optional.ofNullable(words.get(id));
+    }
+
+    @Override
+    public List<Word> selectAllWords() {
+        List<Word> list = new ArrayList<>(words.values());
+        return list;
     }
 }

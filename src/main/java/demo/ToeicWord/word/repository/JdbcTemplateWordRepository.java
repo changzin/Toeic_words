@@ -4,14 +4,15 @@ import demo.ToeicWord.word.domain.Word;
 import org.hibernate.sql.exec.spi.JdbcInsert;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 @Repository
 @Primary
@@ -20,7 +21,6 @@ public class JdbcTemplateWordRepository implements WordRepository{
 
     public JdbcTemplateWordRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-        save(new Word("spell", "mean"));
     }
 
     @Override
@@ -37,6 +37,37 @@ public class JdbcTemplateWordRepository implements WordRepository{
 
     @Override
     public Optional<Word> findById(Long id) {
-        return Optional.empty();
+        List<Word> list = jdbcTemplate.query(
+                "select * from WORD where id = ?",
+                new RowMapper<Word>() {
+                    @Override
+                    public Word mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        Word word = new Word(
+                                rs.getString("spell"),
+                                rs.getString("mean"));
+                        word.setId(rs.getLong("id"));
+                        return word;
+                    }
+                },
+        id);
+        return Optional.ofNullable(list.get(0));
+    }
+
+    @Override
+    public List<Word> selectAllWords() {
+        List<Word> list = jdbcTemplate.query(
+                "select * from WORD",
+                new RowMapper<Word>() {
+                    @Override
+                    public Word mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        Word word = new Word(
+                                rs.getString("spell"),
+                                rs.getString("mean"));
+                        word.setId(rs.getLong("id"));
+                        return word;
+                    }
+                }
+        );
+        return list.isEmpty() ? null : list;
     }
 }
