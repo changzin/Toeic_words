@@ -26,7 +26,7 @@ public class JdbcTemplateWordRepository implements WordRepository{
     @Override
     public Word save(Word word) {
         SimpleJdbcInsert jdbcInsert= new SimpleJdbcInsert(jdbcTemplate);
-        jdbcInsert.withTableName("WORD").usingGeneratedKeyColumns("id");
+        jdbcInsert.withTableName("WORD").usingGeneratedKeyColumns("word_id");
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("spell", word.getSpell());
         parameters.put("mean", word.getMean());
@@ -38,14 +38,14 @@ public class JdbcTemplateWordRepository implements WordRepository{
     @Override
     public Optional<Word> findById(Long id) {
         List<Word> list = jdbcTemplate.query(
-                "select * from WORD where id = ?",
+                "select * from WORD where word_id = ?",
                 new RowMapper<Word>() {
                     @Override
                     public Word mapRow(ResultSet rs, int rowNum) throws SQLException {
                         Word word = new Word(
                                 rs.getString("spell"),
                                 rs.getString("mean"));
-                        word.setId(rs.getLong("id"));
+                        word.setId(rs.getLong("word_id"));
                         return word;
                     }
                 },
@@ -63,7 +63,7 @@ public class JdbcTemplateWordRepository implements WordRepository{
                         Word word = new Word(
                                 rs.getString("spell"),
                                 rs.getString("mean"));
-                        word.setId(rs.getLong("id"));
+                        word.setId(rs.getLong("word_id"));
                         return word;
                     }
                 }

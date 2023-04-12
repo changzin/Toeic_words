@@ -2,19 +2,20 @@ package demo.ToeicWord.word;
 
 import demo.ToeicWord.word.domain.Word;
 import demo.ToeicWord.word.service.WordService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 public class WordController {
     private final WordService wordService;
-    @Autowired
-    public WordController(WordService wordService) {
-        this.wordService = wordService;
-    }
+
     @PostMapping("/new")
     public ResponseEntity create(Dto dto){
         Word word = new Word();
@@ -31,6 +32,27 @@ public class WordController {
 
     @GetMapping("/find")
     public ResponseEntity readOne(@RequestParam("id") Long id){
-        return ResponseEntity.ok().body(wordService.findOne(id).get());
+        return ResponseEntity.ok().body(wordService.findOne(id));
+    }
+
+    @GetMapping("/findAll")
+    public String readAll(){
+        List<Word> wordList = wordService.findAll();
+        for(Word word : wordList){
+            System.out.println(word.getId() + " " + word.getSpell() + " " + word.getMean());
+        }
+        return "OK";
+    }
+
+    @GetMapping("/firstTest")
+    public String firstTest(){
+        List<TestWord> TestWordList = wordService.firstTest();
+        for(TestWord testWord : TestWordList){
+            System.out.println(testWord.getWord().getSpell() + " " + testWord.getWord().getMean());
+            for (String choice : testWord.getChoice()){
+                System.out.println("    " + choice);
+            }
+        }
+        return "OK";
     }
 }

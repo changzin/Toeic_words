@@ -13,9 +13,18 @@ repositories {
 }
 
 dependencies {
+	// provider, lombok으로 인한 어노테이션 편의성 제공
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
+
+	// web, spring, springboot 관련
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// database 관련
 	implementation files("libs/mysql-connector-j-8.0.32.jar")
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
