@@ -2,6 +2,7 @@ package demo.ToeicWord.word;
 
 import demo.ToeicWord.word.domain.Word;
 import demo.ToeicWord.word.service.WordService;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import java.util.List;
 public class WordController {
     private final WordService wordService;
 
-    @PostMapping("/new")
+    @PostMapping("/words/new")
     public ResponseEntity create(Dto dto){
         Word word = new Word();
         word.setSpell(dto.getSpell());
@@ -30,18 +31,21 @@ public class WordController {
         return ResponseEntity.ok().body(wordService.findOne(word.getId()));
     }
 
-    @GetMapping("/find")
+    @GetMapping("/words")
     public ResponseEntity readOne(@RequestParam("id") Long id){
+        try{
+            wordService.findOne(id);
+        }
+        catch(IllegalStateException e){
+            return ResponseEntity.ok().body(e.getMessage());
+        }
         return ResponseEntity.ok().body(wordService.findOne(id));
     }
 
-    @GetMapping("/findAll")
-    public String readAll(){
+    @GetMapping("/words/findAll")
+    public ResponseEntity readAll(){
         List<Word> wordList = wordService.findAll();
-        for(Word word : wordList){
-            System.out.println(word.getId() + " " + word.getSpell() + " " + word.getMean());
-        }
-        return "OK";
+        return ResponseEntity.ok().body(wordList);
     }
 
     @GetMapping("/firstTest")
@@ -54,5 +58,21 @@ public class WordController {
             }
         }
         return "OK";
+    }
+
+    @PostMapping("words/update")
+    public ResponseEntity updateOne(Word word) {
+        try {
+            wordService.updateOne(word);
+        }
+        catch (IllegalStateException e){
+            return ResponseEntity.ok().body(e.getMessage());
+        }
+        return  ResponseEntity.ok().body(wordService.updateOne(word));
+    }
+
+    @PostMapping("words/delete")
+    public String removeOne(Long id){
+        return wordService.deleteOne(id);
     }
 }

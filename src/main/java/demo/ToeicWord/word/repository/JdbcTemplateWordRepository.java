@@ -70,4 +70,20 @@ public class JdbcTemplateWordRepository implements WordRepository{
         );
         return list.isEmpty() ? null : list;
     }
+
+    @Override
+    public Optional<Word> updateById(Word word) {
+        String sql = "update WORD set spell=?, mean=? where word_id=" + word.getId();
+        int result = jdbcTemplate.update(sql, word.getSpell(), word.getMean());
+        return findById(word.getId());
+    }
+
+    @Override
+    public int deleteById(Long id) {
+        String sql = "delete from WORD where word_id=" + id;
+        System.out.println("sql = " + sql);
+        int result = jdbcTemplate.update(sql);
+        System.out.println(result + "개 행 삭제성공");
+        return result;
+    }
 }

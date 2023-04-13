@@ -1,5 +1,4 @@
 package demo.ToeicWord;
-import demo.ToeicWord.word.repository.MemoryWordRepository;
 import demo.ToeicWord.word.repository.WordRepository;
 import demo.ToeicWord.word.service.WordService;
 import org.springframework.context.annotation.Bean;

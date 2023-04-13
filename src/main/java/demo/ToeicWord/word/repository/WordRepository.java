@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface WordRepository {
     Word save(Word word);
     Optional<Word> findById(Long id);
-
     List<Word> selectAllWords();
+
+    Optional<Word> updateById(Word word);
+    int deleteById(Long id);
 }

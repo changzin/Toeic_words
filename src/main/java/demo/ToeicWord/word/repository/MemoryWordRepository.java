@@ -1,3 +1,4 @@
+/*
 package demo.ToeicWord.word.repository;
 
 import demo.ToeicWord.word.domain.Word;
@@ -27,3 +28,4 @@ public class MemoryWordRepository implements WordRepository{
         return list;
     }
 }
+*/

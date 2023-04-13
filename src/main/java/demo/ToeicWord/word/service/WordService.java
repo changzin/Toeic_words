@@ -24,12 +24,17 @@ public class WordService {
     private final ObjectProvider<MyLogger> myLoggerProvider;
 
     public Word addOne(Word word){
+        List<Word> wordList = findAll();
+        for(Word w : wordList){
+            if (w.getMean().equals(word.getMean()) || w.getSpell().equals(word.getSpell()))
+                throw new IllegalStateException("이미 존재하는 단어입니다");
+        }
         return wordRepository.save(word);
     }
 
     public Word findOne(Long id){
         if (wordRepository.findById(id).isEmpty())
-            throw new IllegalStateException("존재하지 않는 회원입니다");
+            throw new IllegalStateException("존재하지 않는 단어입니다");
         return wordRepository.findById(id).get();
     }
 
@@ -52,6 +57,22 @@ public class WordService {
         return tests;
     }
 
+    public Word updateOne(Word word){
+        if (wordRepository.updateById(word).isEmpty())
+            throw new IllegalStateException("존재하지 않는 단어입니다");
+        return wordRepository.findById(word.getId()).get();
+    }
+
+    public String deleteOne(Long id){
+        int result = wordRepository.deleteById(id);
+        if (result == 0){
+            return "존재하지 않는 회원입니다";
+        }
+        else{
+            return "삭제 완료";
+        }
+
+    }
     public void logging(String id) {
         MyLogger myLogger = myLoggerProvider.getObject();
         myLogger.log("service id = " + id);
