@@ -25,9 +25,11 @@ public class WordService {
 
     public Word addOne(Word word){
         List<Word> wordList = findAll();
-        for(Word w : wordList){
-            if (w.getMean().equals(word.getMean()) || w.getSpell().equals(word.getSpell()))
-                throw new IllegalStateException("이미 존재하는 단어입니다");
+        if (wordList != null){
+            for(Word w : wordList){
+                if (w.getMean().equals(word.getMean()) || w.getSpell().equals(word.getSpell()))
+                    throw new IllegalStateException("이미 존재하는 단어입니다");
+            }
         }
         return wordRepository.save(word);
     }
@@ -66,7 +68,7 @@ public class WordService {
     public String deleteOne(Long id){
         int result = wordRepository.deleteById(id);
         if (result == 0){
-            return "존재하지 않는 회원입니다";
+            return "존재하지 않는 단어입니다";
         }
         else{
             return "삭제 완료";

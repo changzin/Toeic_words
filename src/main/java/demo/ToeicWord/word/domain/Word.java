@@ -1,7 +1,7 @@
 package demo.ToeicWord.word.domain;
 
 public class Word {
-    private long id;
+    private long wordId;
     private String spell;
     private String mean;
 
@@ -14,11 +14,11 @@ public class Word {
     }
 
     public long getId() {
-        return id;
+        return wordId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId(long wordId) {
+        this.wordId = wordId;
     }
 
     public String getSpell() {

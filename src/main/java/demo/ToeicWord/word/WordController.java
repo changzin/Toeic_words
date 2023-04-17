@@ -20,15 +20,18 @@ public class WordController {
     @PostMapping("/words/new")
     public ResponseEntity create(Dto dto){
         Word word = new Word();
+        System.out.println(word.getId());
+
         word.setSpell(dto.getSpell());
         word.setMean(dto.getMean());
         try{
-            wordService.addOne(word);
+            word = wordService.addOne(word);
         }
         catch(IllegalStateException e){
             return ResponseEntity.ok().body(e.getMessage());
         }
-        return ResponseEntity.ok().body(wordService.findOne(word.getId()));
+        System.out.println(word.getId());
+        return ResponseEntity.ok().body(word);
     }
 
     @GetMapping("/words")

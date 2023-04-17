@@ -36,7 +36,7 @@ public class JdbcTemplateWordRepository implements WordRepository{
     }
 
     @Override
-    public Optional<Word> findById(Long id) {
+    public Optional<Word> findById(Long wordId) {
         List<Word> list = jdbcTemplate.query(
                 "select * from WORD where word_id = ?",
                 new RowMapper<Word>() {
@@ -49,8 +49,11 @@ public class JdbcTemplateWordRepository implements WordRepository{
                         return word;
                     }
                 },
-        id);
-        return Optional.ofNullable(list.get(0));
+        wordId);
+        if (list.isEmpty())
+            return Optional.empty();
+        else
+            return Optional.ofNullable(list.get(0));
     }
 
     @Override
@@ -79,11 +82,8 @@ public class JdbcTemplateWordRepository implements WordRepository{
     }
 
     @Override
-    public int deleteById(Long id) {
-        String sql = "delete from WORD where word_id=" + id;
-        System.out.println("sql = " + sql);
-        int result = jdbcTemplate.update(sql);
-        System.out.println(result + "개 행 삭제성공");
-        return result;
+    public int deleteById(Long wordId) {
+        String sql = "delete from WORD where word_id=" + wordId;
+        return jdbcTemplate.update(sql);
     }
 }
